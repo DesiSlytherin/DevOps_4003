@@ -17,4 +17,10 @@ public class logInService
         logIn user=rep.findByUsernameAndPassword(username, password);
         return user;
     }
+
+    public logIn register(String username, String password)
+    {
+        logIn user=rep.save(new logIn(username, password));
+        return user;
+    }
 }

@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.afrah.example.service.logInService;
 import com.afrah.example.domain.logIn;
+// import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestBody;
+
+
 
 @Controller
 public class LogInController {
@@ -27,6 +31,11 @@ public class LogInController {
         return "login";
     }
  
+    @GetMapping("/reg")
+    public String apu() {
+        return "reg";
+    }
+    
     @PostMapping("/log")
     public String login(@ModelAttribute("user") logIn user) {
  
@@ -40,6 +49,19 @@ public class LogInController {
         }
     }
  
+    @PostMapping("/register")
+    public String register(@ModelAttribute("user") logIn user) {
+ 
+        logIn oauthUser = service.register(user.getUsername(), user.getPassword());
+ 
+        System.out.print(oauthUser);
+        if (Objects.nonNull(oauthUser)) {
+            return "redirect:/";
+        } else {
+            return "redirect:/reg";
+        }
+    }
+    
     @GetMapping("/display")
     public String display() {
         return "display";
